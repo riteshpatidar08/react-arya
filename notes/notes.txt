@@ -55,7 +55,6 @@ const [country ,setCountry]= useState([])
 
 useEffect(()=>{
   console.log('UseEffect only runs on initial render or when you refresh the page')
-
   fetch('https://restcountries.com/v3.1/all')
       .then(response => response.json())
       .then(json => setCountry(json))
@@ -106,3 +105,69 @@ export default App;
 
 // test()
 // console.log(a)
+
+
+
+
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [country, setCountry] = useState([]);
+  const [singleCountry, setSingleCountry] = useState('');
+
+  useEffect(() => {
+    console.log(
+      'UseEffect only runs on initial render or when you refresh the page'
+    );
+    fetch('https://restcountries.com/v3.1/all')
+      .then((response) => response.json())
+      .then((json) => setCountry(json));
+  }, []);
+
+  console.log(country);
+
+  useEffect(() => {
+    console.log('Runs every time');
+  });
+
+  useEffect(() => {
+    console.log('Runs when count changes');
+    fetch(`https://restcountries.com/v3.1/name/${singleCountry}`)
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }, [singleCountry]);
+
+  const handleClick = () => {
+    setCount(count + 1);
+  };
+
+  const handleSelectChange = (event) => {
+    setSingleCountry(event.target.value);
+  };
+  console.log(singleCountry);
+  return (
+    <div className="ml-10 mt-10 text-xl">
+      <p className="font-bold text-blue-600">{count}</p>
+      <button
+        onClick={handleClick}
+        className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-300"
+      >
+        Increment
+      </button>
+      <div className="mt-4">
+        <select
+          onChange={handleSelectChange}
+          className="p-2 border rounded-md shadow-md w-64"
+        >
+          <option>Select country</option>
+          {country.map((coun, index) => (
+            <option key={index}>{coun.name.common}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+}
+
+export default App;
