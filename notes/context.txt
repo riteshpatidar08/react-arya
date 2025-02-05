@@ -1,0 +1,39 @@
+import React from 'react';
+import { useContext } from 'react';
+import { DataContext } from './context/DataContext';
+function App() {
+  const username = 'John';
+  return (
+    <div>
+      <Parent username={username} />
+    </div>
+  );
+}
+
+function Parent({ username }) {
+  return (
+    <div>
+      <Child username={username} />
+    </div>
+  );
+}
+
+function Child({ username }) {
+  return (
+    <div>
+      <GrandChild username={username} />
+    </div>
+  );
+}
+
+function GrandChild() {
+  console.log(useContext(DataContext));
+  const { username, email } = useContext(DataContext);
+  return (
+    <div>
+      <h1>{email}</h1>
+      <h1>{username}</h1>
+    </div>
+  );
+}
+export default App;
