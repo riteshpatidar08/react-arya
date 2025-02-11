@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import axios from 'axios';
+
 function DataFetch() {
   const initialState = {
     loading: false,
@@ -39,3 +40,12 @@ function DataFetch() {
 }
 
 export default DataFetch;
+
+
+//keyword in the react -redux 
+
+//ACTION => {type:'Pending'} => automatic creation
+//REDUCERS => state, action => new state return
+//DISPATCH => dispatch the action then it will go to the reducer function
+//INITIAL STATE => 
+//STORE
